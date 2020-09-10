@@ -6,3 +6,6 @@ ascii
 
 #ignore python bytecode files
 *.pyc
+
+#ignore output files of all trial runs
+trials

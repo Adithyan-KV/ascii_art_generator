@@ -3,7 +3,7 @@ import numpy as np
 
 
 def main():
-    image = Image.open('image.jpg')
+    image = Image.open('rahul.jpg')
     pre_processed_data = preprocess(image)
     ascii_data = convert_to_ascii(pre_processed_data)
     write_to_file(ascii_data)
@@ -20,7 +20,7 @@ def preprocess(image):
         nparray: The resized, greyscale image data matrix
     """
     width, height = image.size
-    image = image.resize((width//30, height//30))
+    image = image.resize((width//4, height//4))
     data = np.asarray(image)
     # weights chosen in accordance with
     # https://en.wikipedia.org/wiki/Luma_(video)
@@ -30,6 +30,15 @@ def preprocess(image):
 
 
 def convert_to_ascii(image_data):
+    """Take an image data matrix and generate the ASCII data to be written out
+    to a file
+
+    Args:
+        image_data (nparray): Image pixel data to be coverted to ASCII
+
+    Returns:
+        nparray: ASCII character data for the image ready to be written out
+    """
     # sorted from light to dark (assuming light background)
     # character set selected from http://paulbourke.net/dataformats/asciiart/
     characters_used = [' ', '.', ':', ';', '+', '?', '#', '%', '@', '$']
@@ -44,13 +53,29 @@ def convert_to_ascii(image_data):
 
 
 def normalize(value, lower_bound, upper_bound):
+    """Normalize pixel values between 0-255 to a range between upper and lower 
+    bound values, so as to correspond to number of ASCII intensity values used
+
+    Args:
+        value (int): The value to be normalized
+        lower_bound (int): The lower bound of the range of normalization
+        upper_bound (int): The upper bound of the range of normalization
+
+    Returns:
+        int: The normalized value between lower and upper bounds
+    """
     normalized_value = round(value/255*(upper_bound-lower_bound))
     return normalized_value
 
 
 def write_to_file(data):
+    """Write out the ASCII data to a text file
+
+    Args:
+        data (nparray): The ASCII character data to be written to file
+    """
     height, width = np.shape(data)
-    with open('test.txt', 'w') as fopen:
+    with open('rahul.txt', 'w') as fopen:
         for i in range(height):
             for j in range(width):
                 fopen.write(data[i, j])
