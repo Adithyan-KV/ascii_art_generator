@@ -20,7 +20,7 @@ def preprocess(image):
         nparray: The resized, greyscale image data matrix
     """
     width, height = image.size
-    image = image.resize((width//10, height//10))
+    image = image.resize((width//30, height//30))
     data = np.asarray(image)
     # weights chosen in accordance with
     # https://en.wikipedia.org/wiki/Luma_(video)
