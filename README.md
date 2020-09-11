@@ -44,3 +44,18 @@ Others
 -w <width value> :maintain aspect ration with specified width
 -c <width> <height> :custom specify height and width
 ```
+Examples
+```
+##Creates ascii art from image.jpg with original size of image (number of characters = number of pixels)
+python generator.py image.jpg -o
+
+##Creates ascii art 100 characters wide while maintaining aspect ratio of image.jpg
+python generator.py image.jpg -w 100
+
+##Creates ascii art 100 characters tall while maintaining aspect ratio of image.jpg
+python generator.py image.jpg -h 100
+
+##Creates ascii art 100 characters wide and 100 characters tall
+python generator.py image.jpg -c 100 100
+```
+  
