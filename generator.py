@@ -1,12 +1,14 @@
 from PIL import Image
 import numpy as np
+import sys
 
 
-def main():
-    image = Image.open('rahul.jpg')
+def main(image, *args, **kwargs):
+    filename = sys.argv[1]
+    image = Image.open(f'{filename}')
     pre_processed_data = preprocess(image)
     ascii_data = convert_to_ascii(pre_processed_data)
-    write_to_file(ascii_data)
+    write_to_file(ascii_data, f'{image}.txt')
 
 
 def preprocess(image):
@@ -20,7 +22,7 @@ def preprocess(image):
         nparray: The resized, greyscale image data matrix
     """
     width, height = image.size
-    image = image.resize((width//4, height//4))
+    image = image.resize((width//10, height//20))
     data = np.asarray(image)
     # weights chosen in accordance with
     # https://en.wikipedia.org/wiki/Luma_(video)
@@ -68,14 +70,14 @@ def normalize(value, lower_bound, upper_bound):
     return normalized_value
 
 
-def write_to_file(data):
+def write_to_file(data, filename):
     """Write out the ASCII data to a text file
 
     Args:
         data (nparray): The ASCII character data to be written to file
     """
     height, width = np.shape(data)
-    with open('rahul.txt', 'w') as fopen:
+    with open('elementary.txt', 'w') as fopen:
         for i in range(height):
             for j in range(width):
                 fopen.write(data[i, j])
@@ -83,4 +85,4 @@ def write_to_file(data):
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv)
