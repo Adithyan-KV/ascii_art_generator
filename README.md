@@ -27,3 +27,20 @@ pip install numpy
   
 pip install pillow
 ```
+
+## Usage
+
+Download or clone the repo. Run
+```
+python generator.py <path to image> <dimension_arguments>
+```
+Possible arguments are
+```
+Default
+-o :original size of image
+
+Others
+-h <height value> :maintain aspect ratio with specified height
+-w <width value> :maintain aspect ration with specified width
+-c <width> <height> :custom specify height and width
+```
