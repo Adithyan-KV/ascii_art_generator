@@ -1,7 +1,5 @@
 # Image to ASCII converter
 
-*Work still in progress*
-
 Generate ASCII art from an image.
 
 ## Demo
