@@ -21,7 +21,8 @@ class Converter():
         image = Image.open(f'{filename}')
         pre_processed_data = self.preprocess(image, dimension_args)
         ascii_data = self.convert_to_ascii(pre_processed_data)
-        self.write_to_file(ascii_data, f'{os.path.splitext(filename)[0]}')
+        # self.write_to_file(ascii_data, f'{os.path.splitext(filename)[0]}')
+        self.write_to_file(ascii_data, 'test')
 
     def preprocess(self, image, dimension_args):
         """Preprocesses the image before being processed to convert to ascii. Image
@@ -52,7 +53,7 @@ class Converter():
                     try:
                         output_height = int(dimension_args[1])
                         output_width = round(
-                            output_height*(img_width/img_height))
+                            output_height * (img_width / img_height))
                     except Exception:
                         raise TypeError("Height must be a number")
             elif flag == '-w':
@@ -66,7 +67,7 @@ class Converter():
                     try:
                         output_width = int(dimension_args[1])
                         output_height = round(
-                            output_width*(img_height/img_width))
+                            output_width * (img_height / img_width))
                     except Exception:
                         raise TypeError("Height must be a number")
             elif flag == '-o':
@@ -96,7 +97,7 @@ class Converter():
         # weights chosen in accordance with
         # https://en.wikipedia.org/wiki/Luma_(video)
         weight_array = np.array([0.3, 0.59, 0.11])
-        luma_value_data = np.matmul(data, weight_array)
+        luma_value_data = np.matmul(data[:, :, :3], weight_array)
         return luma_value_data
 
     def convert_to_ascii(self, image_data):
@@ -133,7 +134,7 @@ class Converter():
         Returns:
             int: The normalized value between lower and upper bounds
         """
-        normalized_value = round(value/255*(upper_bound-lower_bound))
+        normalized_value = round(value / 255 * (upper_bound - lower_bound))
         return normalized_value
 
     def write_to_file(self, data, filename):
